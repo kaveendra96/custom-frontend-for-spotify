@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import Artist from './Component/Artist';
 const API_ADDRESS='https://spotify-api-wrapper.appspot.com';
 
 class App extends React.Component {
@@ -48,6 +49,7 @@ class App extends React.Component {
               onChange={this.updateArtistQuery}
               />
               <button onClick={this.searchArtist} className="btn btn-outline-success btn-lg m-2">Search</button>
+              <Artist artist={this.state.artist}/>
             </div>
         </div>
       );
