@@ -1,22 +1,22 @@
 import React from 'react';
 import './App.css';
 import Artist from './Component/Artist';
+import Search from './Component/Search';
+import Tracks from './Component/Tracks';
 const API_ADDRESS='https://spotify-api-wrapper.appspot.com';
 
 class App extends React.Component {
   state={
-    artistQuery:'',
     artist:null,
     tracks:[]
   }
-
-  updateArtistQuery=  event =>{
-      this.setState({
-        artistQuery:event.target.value
-      })
+  componentDidMount(){
+    this.searchArtist('pentatonix')
   }
-  searchArtist=()=>{
-      fetch(`${API_ADDRESS}/artist/${this.state.artistQuery}`)
+
+  
+  searchArtist= artistQuery =>{
+      fetch(`${API_ADDRESS}/artist/${artistQuery}`)
         .then(response => response.json())
         .then(json => {
             if(json.artists.total>0){
@@ -33,23 +33,15 @@ class App extends React.Component {
         })
 
   }
-  handleKeyPress=event=>{
-    if(event.key === 'Enter')
-        this.searchArtist()
-  }
+  
     render(){
       return (
         <div className="App">
             <div className="container">
               <h1>Music Application</h1>
-              <input 
-              className="form-control m-4" 
-              placeholder="Enter artist name"
-              onKeyPress={this.handleKeyPress}
-              onChange={this.updateArtistQuery}
-              />
-              <button onClick={this.searchArtist} className="btn btn-outline-success btn-lg m-2">Search</button>
+              <Search searchArtist={this.searchArtist}/>
               <Artist artist={this.state.artist}/>
+              <Tracks tracks={this.state.tracks}/>
             </div>
         </div>
       );
