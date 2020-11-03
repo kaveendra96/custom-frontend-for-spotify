@@ -1,25 +1,39 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  state={
+    artistQuery:''
+  }
+
+  updateArtistQuery=  event =>{
+      this.setState({
+        artistQuery:event.target.value
+      })
+  }
+  searchArtist=()=>{
+    console.log(this.state)
+  }
+  handleKeyPress=event=>{
+    if(event.key === 'Enter')
+        this.searchArtist()
+  }
+    render(){
+      return (
+        <div className="App">
+            <div className="container">
+              <h1>Music Application</h1>
+              <input 
+              className="form-control m-4" 
+              placeholder="Enter artist name"
+              onKeyPress={this.handleKeyPress}
+              onChange={this.updateArtistQuery}
+              />
+              <button onClick={this.searchArtist} className="btn btn-primary m-2">Search</button>
+            </div>
+        </div>
+      );
+    }
 }
 
 export default App;
